@@ -24,11 +24,11 @@ The ApcBundle also provides a command to clear APC cache from CLI.
 
 Clear opcode cache:
 	
-	php app/console apc:clear file
+	php app/console apc:clear --opcode
 
 Clear user cache:
 	
-	php app/console apc:clear user
+	php app/console apc:clear --user
 
 
 ## Installation
@@ -39,7 +39,7 @@ Check that you have the APC extension installed and enabled on your server (see 
 
 ### Get the bundle
 
-To install the bundle, place it in the `src/Kelu95/ApcBundle` directory of your project
+To install the bundle, place it in the `vendor/bundles/Kelu95/ApcBundle` directory of your project
 You can do this by adding the bundle as a submodule, cloning it, or simply downloading the source.
 
     git submodule add https://kelu95@github.com/kelu95/ApcBundle.git src/Kelu95/ApcBundle
@@ -51,7 +51,7 @@ need to add the `Kelu95` namespace to your autoloader:
 
     // app/autoload.php
     $loader->registerNamespaces(array(
-        'Kelu95'                       => __DIR__.'/../src'
+        'Kelu95'           => __DIR__.'/../vendor/bundles',
         // ...
     ));
 
@@ -70,7 +70,7 @@ To start using the bundle, initialize the bundle in your Kernel:
 
 ### Declare the service
 
-	//app/config.yml
+	//app\config\config.yml
 	services: 
 		// ...
 	    apc_cache:
@@ -78,10 +78,10 @@ To start using the bundle, initialize the bundle in your Kernel:
 	        arguments: [%apc_enabled%,%apc_ttl%]
 
 ### Add this parameters to your parameters
-	//app\config\config.yml
-	parameters:
-		// ...
-		apc_enabled=true
-    	apc_ttl=1800 
+	//app\config\parameters.ini
+	[parameters]
+		;....
+		apc_enabled = true
+    apc_ttl = 1800
 
 apc_ttl is the default time to live, in second. 1800 : 30 minutes
